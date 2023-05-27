@@ -44,3 +44,7 @@ I will be anaylzing data and identifying trends from the last 12 months of data 
 Each file available contains data for one month, saved under the naming convention of YYYYMM-divvy-tripdata. The spread sheets contain information for each trip taken incuding bike type, start and end time, start and end station, start and end location, and if the rider is an annual member or not. The column names are as follows: ride_id, rideable_type, started_at, ended_at, start_station_name, start_station_id, end_station_name, end_station_id, start_lat, start_lng, end_lat, end_lng, and member_casual.
 
 I have added columns ride_length and day_of_week to add how long rides last, and which days of the week rides occur on to my analysis.
+
+## Process
+### Microsoft SQL Server
+I will be using MSQLS to merge and work with the various data sets, as the combined number of entries from the last year exceed the limit of rows Excel can be used for.
