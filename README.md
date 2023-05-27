@@ -48,3 +48,98 @@ I have added columns ride_length and day_of_week to add how long rides last, and
 ## Process
 ### Microsoft SQL Server
 I will be using MSQLS to merge and work with the various data sets, as the combined number of entries from the last year exceed the limit of rows Excel can be used for.
+
+### Condensing Data
+The dataset being used does not have any relational elements, so keeping the data sets separate will needlessly increase the complexity of each query. As such, I have elected to condense all of the data down into a single database named 'last_12_months' for exploration. This database contains 5,859,061 entiries.
+
+### Converting Data type
+The column 'ride_length' was displaying as a datetime value, leading to an incorrect representation of the data. To correct this, a small edit to the table needed to be done, alltering the column data type to time(0) leaves us with the correct format and values in the column.
+
+### Exploring the Data
+In order to better analyze the data, I first need to spend some time famliarizing myself with it. To do so, I am finding answers to the following questions about the data set:
+  1. What data types am I working with?
+  2. Are there any duplicate values?
+  3. How many null values are in my data?
+  4. How many types of bike are available?
+  5. How many trips are from members? From casuals?
+  6. What data can be removed?
+
+#### What data types am I working with?
+MSSSQLSERVER managment studio offers a very simple way to view the data types, and check if a column allows for null values. Using the right-click, 'Design' feature brings us to a chart showing the column names, data types, and a check box for if null values are alllowed.
+![Screenshot 2023-05-26 193019](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/91e44b7c-15c1-4a82-b6f4-30bd9db13b7b)
+
+As we can see here, the data I have is nvarchar, float or time/date data, which is to be expected as I dont see myself needing to do much arithmatic exploration in this data set. 
+
+#### Are there any duplicate values?
+In order to check for duplicate entries, I could have used the integrated features of Excel, but to save time I've waited until now. I want to examine the count of all entires, and subtract the count of the distinct entries to evaluate how many duplicate values there are. I'll use the ride_id column for this, as I expect this to not have duplicate or null values.
+![Screenshot 2023-05-26 204542](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/a3d6fe60-3428-4a0b-8123-ece6d2f2ae8e)
+
+Great, now we know that the ride_id column has no duplicate values and each entry will represent a distinct ride. However, I'm still operating on the assumtion that there are no null values in the column, so lets make sure of that.
+
+#### How many null values are in my data?
+While I'm ensuring that there are no nulls in my ride_id column, lets look at all of the columns too.
+![Screenshot 2023-05-26 204926](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/37418228-1242-49ed-a5ae-2ed86668825c)
+
+Great, we now know that there are no null values in the ride_id, rideable type, started_at, ended_at, start_lat, start_lng, and member_casual columns. But we will make note of the 831447 missing values in start_station_name, 1749342 missing in start_station_id, 889075 missing in end_station_name, 1449546 in end_station_id, and 5970 missing from both end_lat and end_lng.
+
+#### Are there any ride ID's that are the incorrectly formated?
+Each ride ID is a 16 character long string, so lets check and see if there are any entries that are not 16 characters long.
+![Screenshot 2023-05-26 210424](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/ed6e5d4a-f116-4c1e-95a9-ab78916af823)
+
+Good. There are no trips to delete from the table.
+
+#### How many types of bike are available?
+Becasue I'd like to include which bike types are bing used in my analysis, i'll go ahead and quickly check how many distinct values are in the rideable_type column, and what percentage of the rides they represent
+
+![Screenshot 2023-05-26 212551](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/faa55bad-a8de-4b91-bf5b-8b7767a8545d)
+
+#### How many trips are from members? From casuals?
+Another quick query to see the proportions of member vs casual rides.
+
+![Screenshot 2023-05-26 213042](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/2d724122-12d5-45b7-a4dc-82c79177a637)
+
+#### What data can be removed?
+There are 103 entries where the end dates precede the start dates.
+
+![Screenshot 2023-05-26 222545](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/a8ef9bb2-114f-413d-af06-00ab40b6a56f)
+
+We can remove those, as they are erroneous.
+
+![Screenshot 2023-05-26 223005](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/7051609c-614f-4c02-9b36-58fe7523a605)
+
+When analyzing this data with the end goal of understanding how members and casual riders differ in their use of Cyclistic bikes, the ID's of the start and end stations are not particularly relevant, so I am comfortable removing the columns. However, being able to analyze and visualize the distance between the start and end points would provide very valuable insight, so I'll also remove the 5970 records that are missing their end_lat and end_lng values.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
