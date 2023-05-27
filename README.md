@@ -107,14 +107,21 @@ We can remove those, as they are erroneous.
 
 ![Screenshot 2023-05-26 223005](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/7051609c-614f-4c02-9b36-58fe7523a605)
 
-When analyzing this data with the end goal of understanding how members and casual riders differ in their use of Cyclistic bikes, the ID's of the start and end stations are not particularly relevant, so I am comfortable removing the columns. However, being able to analyze and visualize the distance between the start and end points would provide very valuable insight, so I'll also remove the 5970 records that are missing their end_lat and end_lng values.
+When analyzing this data with the end goal of understanding how members and casual riders differ in their use of Cyclistic bikes, the ID's of the start and end stations are not particularly relevant, so I am comfortable removing the columns. 
 
+![Screenshot 2023-05-26 223706](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/cf46895a-94b0-47db-85d6-691e86a02ce9)
 
+However, being able to analyze and visualize the distance between the start and end points would provide very valuable insight, so I'll also remove the 5970 records that are missing their end_lat and end_lng values.
 
+![Screenshot 2023-05-26 223948](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/99c59993-e905-4847-aad1-4b7fd51e534d)
 
+I'll also go ahead and remove the entires that are missing the start and end staion names, as that information will be valuable for vizualization and the missing data will make analysis more difficult, if not impossible.
 
+![Screenshot 2023-05-26 224521](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/5c9618c0-1c00-4759-83cf-879a937a3331)
 
+I've removed a total of 1,324,024 rows due to incomplete data. With that many entries missing data, it would probably be a good idea to contact the data engineers to inform them of a potential issue.
 
+Analyze
 
 
 
