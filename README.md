@@ -123,12 +123,30 @@ I've removed a total of 1,324,024 rows due to incomplete data. With that many en
 
 Analyze
 
+For analysis, I will be exporting this into R, to take advantage of the power of the tidyverse library to generate visuals and the increased efficiency of R when working with large data. To do so I first exported my dataset as a .csv, then used the import wizard in R Studio to load my .csv into a dataframe called last_12_months.
+
+![Screenshot 2023-05-27 153935](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/ac9b3ab0-4871-4254-af51-ac198fce8101)
+
+After that, I'll look at some interesting figures like the median and mean of the ride lengths for members and casuals, as well as a table to look at the count of rides by day of the week. To do this, I first created subsets of the data based on the value in the member_casual column, then generated vectors containing the data from the ride_length column to calculate the median and mean for each subset. Using the subsets, I was also able to create a table from each subset containing a count of how many times each day occurs in the day_of_week column. Note that 1 is sunday, and 7 is saturday becasue of how the column we created in excel stored the data.
+
+![Screenshot 2023-05-27 154719](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/876d37d0-a4dd-480a-b8cd-0a3f625c0807)
+
+We can now note those values for use in our analysis going forward.
 
 
+member <- subset(last_12_months, member_casual == "member")
+casual <- subset(last_12_months, member_casual == "casual")
+mem_len <- difftime(member$ended_at, member$started_at, units = "mins")
+cas_len <- difftime(casual$ended_at, casual$started_at, units = "mins")
+#mean(mem_len)
+#median(mem_len)
+#mean(cas_len)
+#median(cas_len)
+#mem_per_day <- table(member["day_of_week"])
+#cas_per_day <- table(casual["day_of_week"])
 
-
-
-
+ggplot(data=member)+
+  geom_point(mapping=aes(x=rideable_type, y=as.numeric(mem_len)))
 
 
 
