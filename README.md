@@ -121,7 +121,7 @@ I'll also go ahead and remove the entires that are missing the start and end sta
 
 I've removed a total of 1,324,024 rows due to incomplete data. With that many entries missing data, it would probably be a good idea to contact the data engineers to inform them of a potential issue.
 
-Analyze
+## Analyze
 
 For analysis, I will be exporting this into R, to take advantage of the power of the tidyverse library to generate visuals and the increased efficiency of R when working with large data. To do so I first exported my dataset as a .csv, then used the import wizard in R Studio to load my .csv into a dataframe called last_12_months.
 
@@ -131,22 +131,43 @@ After that, I'll look at some interesting figures like the median and mean of th
 
 ![Screenshot 2023-05-27 154719](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/876d37d0-a4dd-480a-b8cd-0a3f625c0807)
 
-We can now note those values for use in our analysis going forward.
+We can now note those values for use in our analysis going forward
 
+### Visual analysis
+We can now note those values for use in our analysis going forward
+From here, ill generate a few plots to see the data and look for trends. Here are some things i'm interested in looking at:
+For members vs casuals
+  1. Proportion of rideable_type
+  2. Relationship between ride_length and rideable_type
+  3. Which days are prefered by each user type
 
-member <- subset(last_12_months, member_casual == "member")
-casual <- subset(last_12_months, member_casual == "casual")
-mem_len <- difftime(member$ended_at, member$started_at, units = "mins")
-cas_len <- difftime(casual$ended_at, casual$started_at, units = "mins")
-#mean(mem_len)
-#median(mem_len)
-#mean(cas_len)
-#median(cas_len)
-#mem_per_day <- table(member["day_of_week"])
-#cas_per_day <- table(casual["day_of_week"])
+#### Proportion of rideable_type
 
-ggplot(data=member)+
-  geom_point(mapping=aes(x=rideable_type, y=as.numeric(mem_len)))
+![Screenshot 2023-05-27 172252](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/c40321dc-44f9-42b3-ae71-c1fa678eac36)
+
+In this chart we can see that members seem to prefer classic bikes to electric bikes, and that docked bikes are only used by casual customers.
+
+#### Relationship between ride length and bike type
+
+![Screenshot 2023-05-27 180119](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/8b77f12d-097a-45f2-abdb-a963671f754f)
+
+Oh. Thats not very good, it seems we have some values that are skewing the data, and making the boxplot illegible. Looking at the only distict dots visible, I think its safe to assume that no one is renting out a bike for over a day, let alone 20 days. I'll use subset() to ride legth values over 1500 minutes from the dataframe, and re-generate the box plot.
+
+![Screenshot 2023-05-27 182800](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/0606fc29-4d3d-4bbb-9a62-dca60a57fe5d)
+
+While not much better, there is insight to be gained from this, like confidence in the scope of our data, and a better undestanding of where most of our data is concentrated. Its not too suprising that the 75th percentile contains large enough values to make a box plot difficult to read, but its good confirmation.
+
+#### Which days are preferred by each user type?
+
+![Screenshot 2023-05-27 184031](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/488bf2a3-34a0-4d9d-9544-5cdb268c59db)
+
+Keeping with the company explectation we can see that members ride more work days, and casuals on weekends. Lets adjust this to break down by rideable_type.
+
+![Screenshot 2023-05-27 221358](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/03b0e8f1-53fa-4e6d-9ab5-e92b17437895)
+
+Much better, n9w we can easily see the proportions of each type of bike, per day, separated by membership status.
+
+## Share
 
 
 
