@@ -50,12 +50,15 @@ I have added columns ride_length and day_of_week to add how long rides last, and
 I will be using MSQLS to merge and work with the various data sets, as the combined number of entries from the last year exceed the limit of rows Excel can be used for.
 
 ### Condensing Data
+[SQL Query](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/blob/main/01%20Union%20Data.sql)
 The dataset being used does not have any relational elements, so keeping the data sets separate will needlessly increase the complexity of each query. As such, I have elected to condense all of the data down into a single database named 'last_12_months' for exploration. This database contains 5,859,061 entiries.
 
 ### Converting Data type
+[SQL Query](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/blob/main/02%20Changing%20Data%20Type.sql)
 The column 'ride_length' was displaying as a datetime value, leading to an incorrect representation of the data. To correct this, a small edit to the table needed to be done, alltering the column data type to time(0) leaves us with the correct format and values in the column.
 
 ### Exploring the Data
+[SQL Query](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/blob/main/03%20Exploring%20Data.sql)
 In order to better analyze the data, I first need to spend some time famliarizing myself with it. To do so, I am finding answers to the following questions about the data set:
   1. What data types am I working with?
   2. Are there any duplicate values?
@@ -99,6 +102,7 @@ Another quick query to see the proportions of member vs casual rides.
 ![Screenshot 2023-05-26 213042](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/2d724122-12d5-45b7-a4dc-82c79177a637)
 
 #### What data can be removed?
+[SQL Query](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/blob/main/04%20Cleaning%20Data.sql)
 There are 103 entries where the end dates precede the start dates.
 
 ![Screenshot 2023-05-26 222545](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/a8ef9bb2-114f-413d-af06-00ab40b6a56f)
@@ -122,7 +126,7 @@ I'll also go ahead and remove the entires that are missing the start and end sta
 I've removed a total of 1,324,024 rows due to incomplete data. With that many entries missing data, it would probably be a good idea to contact the data engineers to inform them of a potential issue.
 
 ## Analyze
-
+[R Code](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/blob/main/05%20Analysis%20in%20R.R)
 For analysis, I will be exporting this into R, to take advantage of the power of the tidyverse library to generate visuals and the increased efficiency of R when working with large data. To do so I first exported my dataset as a .csv, then used the import wizard in R Studio to load my .csv into a dataframe called last_12_months.
 
 ![Screenshot 2023-05-27 153935](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/ac9b3ab0-4871-4254-af51-ac198fce8101)
@@ -165,27 +169,52 @@ Keeping with the company explectation we can see that members ride more work day
 
 ![Screenshot 2023-05-27 221358](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/03b0e8f1-53fa-4e6d-9ab5-e92b17437895)
 
-Much better, n9w we can easily see the proportions of each type of bike, per day, separated by membership status.
+Much better, now we can easily see the proportions of each type of bike, per day, separated by membership status.
 
 ## Share
 
+[Visualizaions on Tableau](https://public.tableau.com/app/profile/luke.grover/viz/CyclisticVizualizationPortfolio/TripsbyEndStation)
 
+The goal in putting together these visualizations is to help show the difference between members vs casuals and how they're using the bikes. First, we should look at the distribution of bike types across each category.
 
+![Screenshot 2023-05-28 124252](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/42b52176-3e16-4ee3-878a-2de5e887a506)
 
+In this set of pie charts we can see confirmation that the members have not used the docked bikes, and we also can see the ratios that make up each ride type. The percentages labeling each section are referencing each wedge's proportion of the total rides in the last year. We can see that while classic bikes make up the lion's share of the rides taken, casusal customers make up a larger proportion of the electric bikes than the classic bikes, which may serve as a way of enticing conversion.
 
+![Screenshot 2023-05-28 121710](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/4fe414de-68f7-49fe-856b-1375e666b575)
 
+Examining graphs of the trips taken in the last year, we see some very interesting trends. The top graph is plotting trips taken per month, with summer months showing a significant uptick in rides, particularly across the casual rider-base; March to June shows a nearly 250k increase. The same trend is visible in the member base, but not as severe. This tells me that the casual riders are likely using bikes more as a method of travel and/or recreation while the weather is nicer, a fact that may be marketable.
 
+The second graph is charting which days of the week show the most activity. Consistent with prior buisness knowledge, it looks like causal rides increase on the weekend, and member rides are more common on the weekday.
 
+The third graph confirms suspicions about why weekdays are more popular with members. Looking at the hour by hour breakdown, we can see that members are riding the most during commuter hours, with a small uptick around lunch time. Casual riders are most active in the late afternoon, information that could be of use in generating conversion.
 
+![Screenshot 2023-05-28 121739](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/766ac3a7-0a8d-44dc-8ee8-e43af61c519c)
 
+Our third set of graphs is showing ride duration. Broken down per month we can see more indication that the summer months bring increased use of the bikes, with the longest average casual ride duration happening in May, whereas the member rides maintain much more consistent lenghts all year.
 
+Examining the ride duration per day, we have an expected increase in duration on the weekeneds, stronger in the casual base than the member base. Combining this with information from the last set of charts, I think the trend of casual riders using bikes for leasure or travel on days off is beginning to cement itsself. 
 
+The final chart is showing what hours a ride starts is and the average length of those rides. With 9am to 3pm showing as the window during which the longer rides tend to happen. Through all three of these graphs, we do see that casual riders are consistently riding longer, which may serve as another axis of conversion to membership.
 
+![Screenshot 2023-05-28 121900](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/26fa4e8e-35db-42d1-8899-e7607df11d34)
 
+The final two charts are looking at start and end locations for members and casuals, and here we gain very valuable insight. The most popular start stations among members tend to be centered around residential areas, college campuses and buisness complexes, continuing to suggest that members are using our bikes for commuting. Looking at the most popular start stations for casual riders, we see that they're focused closer to tourist attractions like beaches and museusms.
 
+![Screenshot 2023-05-28 121910](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/c2ad381c-27f4-4b95-8dfc-54742a000f7d)
 
+Examining the end locations confirms that members are commuting from homes to work and school, as there is an increase in the use of resedential stations, but the focus around college campuses and buizness parks remains strong. We also get reinforcement of the idea that causal riders are using bikes for leasure as the end points stay focused around attractions, parks, and other recreational spaces.
 
+## Act
 
+After examining the useage data between casual riders and members, we see strong evidence of the following:
+  1. Casual riders generally prefer to ride on weekends in the warm months of the year, whereas members are riding more during the week.
+  2. Casual rides make up about half of the total rides, but are the demographic which rides for the longest duration.
+  3. Casual riders are starting and ending their journeys around points of interest and recreational areas in the city.
+As such, I would make the following recomendations to incentivize membership:
+  1. Offer additional membership options, like weekender and/or seasonal memberships.
+  2. Offer improved rates for members on long trips to incentivize casual conversion.
+  3. Focus marketing efforts around tourist attractions and recreational spaces.
 
 
 
