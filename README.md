@@ -46,7 +46,7 @@ I have added columns ride_length and day_of_week to add how long rides last, and
 
 ## Process
 ### Microsoft SQL Server
-I will be using MSQLS to merge and work with the various data sets, as the combined number of entries from the last year exceeds the limit of rows Excel can be used for.
+I will be using SQL Server to merge and work with the various data sets, as the combined number of entries from the last year exceeds the limit of rows Excel can be used for.
 
 ### Condensing Data
 [SQL Query](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/blob/main/01%20Union%20Data.sql)
