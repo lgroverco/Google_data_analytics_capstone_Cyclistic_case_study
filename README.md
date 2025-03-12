@@ -154,7 +154,7 @@ In this chart we can see that members seem to prefer classic bikes to electric b
 
 ![Screenshot 2023-05-27 180119](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/8b77f12d-097a-45f2-abdb-a963671f754f)
 
-Oh. That's not very good, it seems we have some values that are skewing the data, and making the boxplot illegible. Looking at the only distinct dots visible, I think its safe to assume that no one is renting out a bike for over a day, let alone 20 days. I'll use subset() to ride length values over 1500 minutes from the dataframe, and re-generate the box plot.
+Oh. That's not very good, it seems we have some values that are skewing the data, and making the boxplot illegible. Looking at the only distinct dots visible, I think its safe to assume that no one is renting out a bike for over a day, let alone 20 days. I'll use subset() to hide length values over 1500 minutes from the dataframe, and re-generate the box plot.
 
 ![Screenshot 2023-05-27 182800](https://github.com/lgroverco/Google_data_analytics_capstone_Cyclistic_case_study/assets/126990386/0606fc29-4d3d-4bbb-9a62-dca60a57fe5d)
 
